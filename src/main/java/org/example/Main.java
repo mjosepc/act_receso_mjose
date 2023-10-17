@@ -1,19 +1,60 @@
 package org.example;
-
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Intro with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
 
-        // Press Mayús+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+            System.out.print("Ingrese el nombre de la persona: ");
+            String nombre = scanner.nextLine();
 
-            // Press Mayús+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+            System.out.print("Ingrese el lugar de destino: ");
+            String destino = scanner.nextLine();
+
+            System.out.print("Ingrese la distancia al destino en kilómetros: ");
+            int distancia = scanner.nextInt();
+
+            System.out.print("Elija un vehículo (1 - Auto, 2 - Motocicleta, 3 - Bicicleta): ");
+            int opcionVehiculo = scanner.nextInt();
+
+            double velocidadAuto = 0;
+            double velocidadMotocicleta = 0;
+            double velocidadBicicleta = 0;
+
+            if (opcionVehiculo == 1) {
+                System.out.print("Ingrese la velocidad promedio en km/h para el auto: ");
+                velocidadAuto = scanner.nextDouble();
+            } else if (opcionVehiculo == 2) {
+                System.out.print("Ingrese la velocidad promedio en km/h para la motocicleta: ");
+                velocidadMotocicleta = scanner.nextDouble();
+            } else if (opcionVehiculo == 3) {
+                System.out.print("Ingrese la velocidad promedio en km/h para la bicicleta: ");
+                velocidadBicicleta = scanner.nextDouble();
+            } else {
+                System.out.println("Opción de vehículo no válida. Saliendo del programa.");
+                return;
+            }
+
+            Persona persona = new Persona(nombre, destino);
+
+            Vehiculo auto = new Vehiculo("auto", velocidadAuto);
+            Vehiculo motocicleta = new Vehiculo("motocicleta", velocidadMotocicleta);
+            Vehiculo bicicleta = new Vehiculo("bicicleta", velocidadBicicleta);
+
+            double tiempoAuto = auto.calcularTiempo(distancia);
+            double tiempoMotocicleta = motocicleta.calcularTiempo(distancia);
+            double tiempoBicicleta = bicicleta.calcularTiempo(distancia);
+
+            double tiempoAutoMinutos = tiempoAuto * 60;
+            double tiempoMotocicletaMinutos = tiempoMotocicleta * 60;
+            double tiempoBicicletaMinutos = tiempoBicicleta * 60;
+
+            System.out.println("Hola " + persona.getNombre() + "!, el tiempo de viaje aproximado para llegar a " +
+                    persona.getDestino() + " en " + auto.getTipo() + " es de: " + tiempoAutoMinutos + " minutos");
+            System.out.println("Hola " + persona.getNombre() + "!, el tiempo de viaje aproximado para llegar a " +
+                    persona.getDestino() + " en " + motocicleta.getTipo() + " es de: " + tiempoMotocicletaMinutos + " minutos");
+            System.out.println("Hola " + persona.getNombre() + "!, el tiempo de viaje aproximado para llegar a " +
+                    persona.getDestino() + " en " + bicicleta.getTipo() + " es de: " + tiempoBicicletaMinutos + " minutos");
+
+            scanner.close();
         }
     }
-}
